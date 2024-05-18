@@ -96,7 +96,7 @@ if (isset($_POST['login'])) {
             <br>
 
             <!-- Link to sign up page -->
-            <p>Don't own your own account yet? <a href="signUp.php">Register here</a>.</p>
+            <p>Don't own your own account yet? <a href="signup.php">Register here</a>.</p>
             <br>
             <?php echo $output; ?>
 
