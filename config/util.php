@@ -14,20 +14,22 @@ if ($conn->connect_error) {
     die("Connection Failed: " . $conn->connect_error);
 }
 
-// Function to generate password hash
-function setPasswordHash($pass): string
-{
-    return password_hash($pass, PASSWORD_DEFAULT);
+// Function to hash passwords using bcrypt with a specified cost
+function setPasswordHash($pass): string {
+    $options = [
+        'cost' => 12,
+    ];
+    return password_hash($pass, PASSWORD_BCRYPT, $options); // Using bcrypt algorithm explicitly
 }
 
 // Function to generate success message
-function success($text): string
+function completed($text): string
 {
     return "<div style='text-align:center;padding-bottom:5px;color:green;'>$text</div>";
 }
 
 // Function to generate failure message
-function fail($text): string
+function failed($text): string
 {
     return "<div style='text-align:center;padding-bottom:5px;color:#FF0019;'>$text</div>";
 }

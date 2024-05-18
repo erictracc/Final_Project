@@ -21,11 +21,11 @@ if (isset($_POST['login'])) {
 
     // Check if username is empty
     if (empty(trim($username))) {
-        $output = fail("Username is required.");
+        $output = failed("Username is required.");
 
         // Check if password is empty
     } else if (empty(trim($password))) {
-        $output = fail("Password is required.");
+        $output = failed("Password is required.");
     } else {
 
         // Query to find the user by username
@@ -35,7 +35,7 @@ if (isset($_POST['login'])) {
 
             // find if the user is real
             if (mysqli_num_rows($queryUserResult) == 0) {
-                $output = fail("No account found with that username.");
+                $output = failed("No account found with that username.");
             } else {
 
                 // find the password if the username is real
@@ -53,15 +53,15 @@ if (isset($_POST['login'])) {
                         $_SESSION["id"] = $id;
                         $_SESSION["username"] = $username;
 
-                        $output = success("Login successful! Redirecting...");
+                        $output = completed("Login successful! Redirecting...");
                         header("location:dashboard.php");
                     } else {
-                        $output = fail("The password you entered is incorrect.");
+                        $output = failed("The password you entered is incorrect.");
                     }
                 }
             }
         } else {
-            $output = fail("An error has occurred: " . $conn->error);
+            $output = failed("An error has occurred: " . $conn->error);
         }
 
         $conn->close();
