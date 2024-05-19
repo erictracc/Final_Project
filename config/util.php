@@ -34,3 +34,4 @@ function failed($text): string
     return "<div style='text-align:center;padding-bottom:5px;color:#FF0019;'>$text</div>";
 }
 
+
