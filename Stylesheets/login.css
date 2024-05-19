@@ -5,7 +5,7 @@
 
 /* Body styles */
 body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Updated font */
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Updated font for the page */
     background: #f4f4f4;
     display: flex;
     align-items: center;
@@ -38,12 +38,12 @@ body {
 .login-border {
     background-color: #fff;
     border: 1px solid #d1d1d1;
-    border-radius: 10px;
+    border-radius: 20px; /* rounded corners */
     width: 450px; /* Extended width */
     max-width: 100%;
     min-height: 400px;
     padding: 30px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* box shadow for main div */
 }
 
 /* Form styles */
