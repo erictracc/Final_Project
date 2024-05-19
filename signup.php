@@ -74,7 +74,7 @@ if (isset($_POST['signup'])) { // Changed 'register' to 'signup'
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MealWorld</title>
+    <title>Signup</title>
     <link rel="stylesheet" href="Stylesheets/login.css">
 </head>
 <body>
@@ -102,7 +102,7 @@ if (isset($_POST['signup'])) { // Changed 'register' to 'signup'
             <?php echo $output; ?>
 
             <!-- Register button -->
-            <input id="loginButton" type="submit" name="signup" value="Sign Up">
+            <input class="loginButton" type="submit" name="signup" value="Sign Up">
         </form>
     </div>
 </div>

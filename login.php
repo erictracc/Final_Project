@@ -78,7 +78,7 @@ if (isset($_POST['login'])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MealWorld</title>
+    <title>Login</title>
     <link rel="stylesheet" href="Stylesheets/login.css">
 </head>
 <body>
@@ -101,7 +101,7 @@ if (isset($_POST['login'])) {
             <?php echo $output; ?>
 
             <!-- Login button -->
-            <input id="loginButton" type="submit" name="login" value="Log In">
+            <input class="loginButton" type="submit" name="login" value="Log In">
         </form>
     </div>
 </div>
