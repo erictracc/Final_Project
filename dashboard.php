@@ -176,32 +176,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add-todays-list']) && 
 
 
 // Today's List - Remove from Today's List
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['remove-todays-list']) && isset($_POST['checkbox'])) {
-    $checkbox = $_POST['checkbox']; // Get all checkbox elements
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['remove-todays-items']) && isset($_POST['checkbox'])) {
+        $checkbox = $_POST['checkbox']; // Get all checkbox elements
 
-    foreach ($checkbox as $name) {
-        $select_item_query = $conn->query("SELECT * FROM todays_items WHERE user_id='$user_id' AND name='$name'");
-
-        if ($select_item_query) {
-            $row = mysqli_fetch_assoc($select_item_query);
-            $name = $row['name'];
-            $calories = $row['calories'];
-            $carbohydrates = $row['carbohydrates'];
-            $fat = $row['fat'];
-            $protein = $row['protein'];
-
+        foreach ($checkbox as $name) {
             $remove_query = $conn->query("DELETE FROM todays_items WHERE user_id='$user_id' AND name='$name'");
 
             if ($remove_query) {
                 $remove_from_todays_list_output = completed("Successfully removed items from today's list.");
             } else {
                 $remove_from_todays_list_output = failed("There was an error while removing the following items from today's list.");
+                error_log("Error removing item '$name': " . $conn->error);
             }
-
-        } else {
-            $remove_from_todays_list_output = failed("There was an error while removing the following items from today's list.");
         }
-    }
+    } else {
+        $remove_from_todays_list_output = failed("No items selected or invalid request.");
+
+
 }
 ?>
 
