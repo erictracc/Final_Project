@@ -16,7 +16,7 @@ body {
 
 /* Login button styles */
 .loginButton {
-    background-color: #0070c9; /* Blue background color */
+    background-color: #0069b7;
     border: none; /* Remove border */
     border-radius: 10px; /* Rounded corners */
     color: white; /* White text color */
@@ -24,8 +24,8 @@ body {
     font-size: 16px;
     font-weight: 700; /* Bold font weight */
     padding: 10px 20px; /* Adjusted padding for smaller width */
-    margin-bottom: 25px;
     width: 50%;
+    margin-bottom: 25px;
     transition: background-color 0.3s ease;
 }
 
@@ -58,15 +58,15 @@ body {
 
 /* Heading styles */
 .login-border h1 {
-    margin: 0 0 20px 0;
     font-family: Arial, sans-serif;
     color: #333;
+    margin: 0 0 20px 0;
 }
 
 /* Paragraph styles */
 .login-border p {
-    margin-bottom: 20px;
     color: rgba(79, 79, 79, 0.83);
+    margin-bottom: 20px;
 }
 
 /* Input field styles */
