@@ -1,4 +1,4 @@
-<script src="Scriptfiles/dashboard.js"></script> <!-- Load dashboard script at beginning for use -->
+<script src="Scriptfiles/dashboard.js"></script> <!-- Loads the dashboard script at beginning for proper functionality -->
 
 <?php
 global $conn;
@@ -19,7 +19,7 @@ if (!isset($_SESSION["logged_in"])) {
 
 
 // Output initializations
-$insert_output = $edit_output = $add_to_todays_items_output = $remove_from_todays_items_output = "";
+$insert_output = $edit_output = $add_to_todays_list_output = $remove_from_todays_list_output = "";
 
 // Session variables
 $user_id = $_SESSION['id'];
@@ -159,18 +159,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add-todays-list']) && 
             $fat = $row['fat'];
             $protein = $row['protein'];
 
-            $insert_query = $conn->query("INSERT INTO todays_items (user_id, name, calories, carbohydrates, fat, protein) 
-                                            VALUES ('$user_id','$name','$calories','$carbohydrates','$fat','$protein')"
-            );
+            $insert_query = $conn->query(
+                    "INSERT INTO todays_items (user_id, name, calories, carbohydrates, fat, protein) VALUES ('$user_id','$name','$calories','$carbohydrates','$fat','$protein')");
 
             if ($insert_query) {
-                $add_to_todays_items_output = completed("Successfully added items to today's list.");
+                $add_to_todays_list_output = completed("Successfully added items to today's list.");
             } else {
-                $add_to_todays_items_output = failed("There was an error while adding the following items to today's list.");
+                $add_to_todays_list_output = failed("There was an error while adding the following items to today's list.");
             }
 
         } else {
-            $add_to_todays_items_output = failed("There was an error while adding the following items to today's list.");
+            $add_to_todays_list_output = failed("There was an error while adding the following items to today's list.");
         }
     }
 }
@@ -181,7 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['remove-todays-list']) 
     $checkbox = $_POST['checkbox']; // Get all checkbox elements
 
     foreach ($checkbox as $name) {
-        $select_item_query = $conn->query("SELECT * FROM todays_list WHERE user_id='$user_id' AND name='$name'");
+        $select_item_query = $conn->query("SELECT * FROM todays_items WHERE user_id='$user_id' AND name='$name'");
 
         if ($select_item_query) {
             $row = mysqli_fetch_assoc($select_item_query);
@@ -191,16 +190,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['remove-todays-list']) 
             $fat = $row['fat'];
             $protein = $row['protein'];
 
-            $remove_query = $conn->query("DELETE FROM todays_list WHERE user_id='$user_id' AND name='$name'");
+            $remove_query = $conn->query("DELETE FROM todays_items WHERE user_id='$user_id' AND name='$name'");
 
             if ($remove_query) {
-                $remove_from_todays_items_output = completed("Successfully removed items from today's list.");
+                $remove_from_todays_list_output = completed("Successfully removed items from today's list.");
             } else {
-                $remove_from_todays_items_output = failed("There was an error while removing the following items from today's list.");
+                $remove_from_todays_list_output = failed("There was an error while removing the following items from today's list.");
             }
 
         } else {
-            $remove_from_todays_items_output = failed("There was an error while removing the following items from today's list.");
+            $remove_from_todays_list_output = failed("There was an error while removing the following items from today's list.");
         }
     }
 }
@@ -213,59 +212,53 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['remove-todays-list']) 
     <title>Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
-    <link rel="stylesheet" href="styling/dashboard.css">
+    <link rel="stylesheet" href="Stylesheets/dashboard.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-    <script src="scripts/dashboard.js"></script>
+    <script src="Scriptfiles/dashboard.js"></script>
 </head>
 <body>
-
+<div class="head">
+    <div class="date-time-box">
+        <h2 id="date-time"></h2>
+    </div>
+</div>
 <div class="box">
     <nav>
         <ul>
             <li>
-                <a href="#" class="logo-pic">
-                    <img src="media/ .png" alt="">
-                    <span class="nav-item">MealWorld</span>
+                <a href="#" class="logo">
+                    <img src="media/dashboard_logo.png" alt="">
+                    <span class="nav-item">FoodTracker</span>
                 </a>
             </li>
             <li>
                 <a id="dashboard-button" class="selected sidebar-item" href="dashboard.php?page=dashboard">
-                <span class="side-item material-icons-sharp">
-                    space_dashboard
-                </span>
+                    <span class="side-item material-icons-sharp">home</span>
                     <span class="nav-item">Dashboard</span>
                 </a>
             </li>
             <li>
-                <a id="food-items-button" class="sidebar-item" href="dashboard.php?page=food-list">
-                <span class="side-item material-icons-sharp">
-                    list
-                </span>
+                <a id="food-list-button" class="sidebar-item" href="dashboard.php?page=food-list">
+                    <span class="side-item material-icons-sharp">fastfood</span>
                     <span class="nav-item">Food List</span>
                 </a>
             </li>
             <li>
-                <a id="todays-items-button" class="sidebar-item" href="dashboard.php?page=todays-list">
-                <span class="side-item material-icons-sharp">
-                    event
-                </span>
+                <a id="todays-list-button" class="sidebar-item" href="dashboard.php?page=todays-list">
+                    <span class="side-item material-icons-sharp">calendar_today</span>
                     <span class="nav-item">Today</span>
                 </a>
             </li>
             <li>
                 <a id="charts-button" class="sidebar-item" href="dashboard.php?page=charts">
-                <span class="side-item material-icons-sharp">
-                    insights
-                </span>
+                    <span class="side-item material-icons-sharp">bar_chart</span>
                     <span class="nav-item">Chart</span>
                 </a>
             </li>
             <li>
                 <a class="sidebar-item" href="dashboard.php?logout=true">
-                <span class="side-item material-icons-sharp">
-                    logout
-                </span>
+                    <span class="side-item material-icons-sharp">exit_to_app</span>
                     <span class="nav-item">Log out</span>
                 </a>
             </li>
@@ -274,7 +267,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['remove-todays-list']) 
 
     <div id="dashboard">
         <h1 id="welcome-back">Welcome back <?php echo $user_name ?>!</h1>
-        <p class="paragraph">Foodie is a premium diet dashboard, giving you insight into the nutritional information
+        <p class="paragraph">FoodTracker is a premium diet dashboard, giving you insight into the nutritional information
             of the food you eat, as well as a daily plan for your meals. You can navigate the dashboard
             on the left of the screen.</p>
     </div>
@@ -352,33 +345,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['remove-todays-list']) 
                                         <td>
                                             <a class="edit-button button"
                                                href="dashboard.php?page=food-list&edit=<?php echo $row['name']; ?>"><span
-                                                    class="side-item material-icons-sharp">edit</span></a>
+                                                        class="side-item material-icons-sharp">edit</span></a>
                                             <a class="modify-button red button"
                                                href="dashboard.php?page=food-list&delete=<?php echo $row['name']; ?>"><span
-                                                    class="side-item material-icons-sharp">delete</span></a>
+                                                        class="side-item material-icons-sharp">delete</span></a>
                                         </td>
                                     </tr>
                                     <?php
                                 }
                             }
                             ?>
-                            <input id="add-todays-chart" class="button" type="submit" name="add-todays-chart"
+                            <input id="add-todays-list" class="button" type="submit" name="add-todays-list"
                                    value="Added Checked Items to Today's List">
                             </thead>
                         </table>
                     </form>
                 </div>
 
-                <div id="add-todays-items-output">
-                    <?php echo $add_to_todays_items_output ?>
+                <div id="add-todays-list-output">
+                    <?php echo $add_to_todays_list_output ?>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="todays-items">
-        <div class="food-items-box">
-            <form action="dashboard.php?page=todays-chart" method="post">
+    <div id="todays-list">
+        <div class="food-table-box">
+            <form action="dashboard.php?page=todays-list" method="post">
                 <table id="todays-list-table" class="food-table">
                     <thead>
                     <tr>
@@ -421,7 +414,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['remove-todays-list']) 
                         }
                     }
                     ?>
-                    <input id="remove-todays-chart" class="button" type="submit" name="remove-todays-chart"
+                    <input id="remove-todays-list" class="button" type="submit" name="remove-todays-items"
                            value="Remove Checked Items From Today's List">
                     </thead>
                     <tfoot>
@@ -436,8 +429,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['remove-todays-list']) 
                 </table>
             </form>
 
-            <div id="remove-todays-chart-output">
-                <?php echo $remove_from_todays_items_output; ?>
+            <div id="remove-todays-items-output">
+                <?php echo $remove_from_todays_list_output; ?>
             </div>
         </div>
     </div>
@@ -445,12 +438,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['remove-todays-list']) 
 
     <div id="charts">
         <div id="chart-box">
-            <canvas id="macronutrients" width="400" height="400"></canvas>
+            <canvas id="macronutrients" width="800" height="800"></canvas>
             <script>
-                let totalCalories = <?php echo $total_calories; ?>;
-                let totalCarbs = <?php echo $total_carbs; ?>;
-                let totalFat = <?php echo $total_fat; ?>;
-                let totalProtein = <?php echo $total_protein; ?>;
+                var totalCalories = <?php echo $total_calories; ?>;
+                var totalCarbs = <?php echo $total_carbs; ?>;
+                var totalFat = <?php echo $total_fat; ?>;
+                var totalProtein = <?php echo $total_protein; ?>;
 
                 const totalMacronutrients = totalCarbs + totalFat + totalProtein;
                 const proteinPercentage = (totalProtein / totalMacronutrients) * 100;
@@ -484,14 +477,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['remove-todays-list']) 
         </div>
     </div>
 
-    <div class="right-side">
-        <div class="date-time-box">
-            <h2 id="date-time"></h2>
-        </div>
-    </div>
 </div>
 <div class="foot">
-    <p class="footer">&copy; 2023 MealWorld. All rights reserved.</p>
+    <p class="foot-cont">&copy; 2023 FoodTracker. All rights are reserved.</p>
 </div>
 </body>
 </html>
