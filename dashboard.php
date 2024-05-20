@@ -266,7 +266,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add-todays-list']) && 
 
     <div id="food-list">
         <div id="food-content">
-            <div id="left-side">
+            <div id="top">
                 <div class="form-box">
                     <form id="add-item-form" method="post" action="dashboard.php?page=food-list">
                         <input type="text" name="name" value="" placeholder="Name">
@@ -277,30 +277,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add-todays-list']) && 
                         <br>
                         <?php echo $insert_output; ?>
                         <br>
-                        <input id="add-food-button" class="modify-button" type="submit" name="add" value="Add Item">
+                        <input id="add_button" class="modify-button" type="submit" name="add" value="Add Food">
                     </form>
                 </div>
 
                 <div class="form-box">
                     <form id="edit-item-form" method="post" action="dashboard.php?page=food-list">
-                        <input id="edit-name" readonly="readonly" type="text" name="name" value="" placeholder="Name">
-                        <input id="edit-calories" readonly="readonly" type="text" name="calories" value=""
-                               placeholder="Calories">
-                        <input id="edit-carbohydrates" readonly="readonly" type="text" name="carbohydrates" value=""
-                               placeholder="Carbohydrates">
-                        <input id="edit-fat" readonly="readonly" type="text" name="fat" value="" placeholder="Fat">
-                        <input id="edit-protein" readonly="readonly" type="text" name="protein" value=""
-                               placeholder="Protein">
+                        <label for="edit-name"></label><input id="edit-name" readonly="readonly" type="text" name="name" value="" placeholder="Name">
+                        <label for="edit-calories"></label><input id="edit-calories" readonly="readonly" type="text" name="calories" value=""
+                                                                  placeholder="Calories">
+                        <label for="edit-carbohydrates"></label><input id="edit-carbohydrates" readonly="readonly" type="text" name="carbohydrates" value=""
+                                                                       placeholder="Carbohydrates">
+                        <label for="edit-fat"></label><input id="edit-fat" readonly="readonly" type="text" name="fat" value="" placeholder="Fat">
+                        <label for="edit-protein"></label><input id="edit-protein" readonly="readonly" type="text" name="protein" value=""
+                                                                 placeholder="Protein">
                         <br>
                         <?php echo $edit_output; ?>
                         <br>
-                        <input id="edit-food-button" class="modify-button" type="submit" name="edit-confirm"
-                               value="Edit Item">
+                        <input id="edit_button" class="modify-button" type="submit" name="edit-confirm" value="Edit Food">
                     </form>
                 </div>
             </div>
 
-            <div id="right-side">
+            <div id="bottom">
                 <div class="food-table-box">
                     <form action="dashboard.php?page=food-list" method="post">
                         <table id="food-table" class="food-table">
@@ -347,8 +346,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add-todays-list']) && 
                                 }
                             }
                             ?>
-                            <input id="add-todays-list" class="button" type="submit" name="add-todays-list"
-                                   value="Added Checked Items to Today's List">
+                            <input id="add_todays_chart" class="button" type="submit" name="add-todays-list"
+                                   value="Click Here to Add Selected Items to Today's Chart">
                             </thead>
                         </table>
                     </form>
@@ -432,10 +431,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add-todays-list']) && 
         <div id="chart-box">
             <canvas id="macronutrients" width="800" height="800"></canvas>
             <script>
-                var totalCalories = <?php echo $total_calories; ?>;
-                var totalCarbs = <?php echo $total_carbs; ?>;
-                var totalFat = <?php echo $total_fat; ?>;
-                var totalProtein = <?php echo $total_protein; ?>;
+                let totalCalories = <?php echo $total_calories; ?>;
+                let totalCarbs = <?php echo $total_carbs; ?>;
+                let totalFat = <?php echo $total_fat; ?>;
+                let totalProtein = <?php echo $total_protein; ?>;
 
                 const totalMacronutrients = totalCarbs + totalFat + totalProtein;
                 const proteinPercentage = (totalProtein / totalMacronutrients) * 100;

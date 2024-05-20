@@ -113,7 +113,7 @@ nav .side-item {
     font-weight: 700;
     margin: 4px 0;
     border-radius: 8px;
-    background-color: #0072C6;
+    background-color: darkblue;
     border: 1px solid transparent;
     width: 10vh;
     font-size: 16px;
@@ -218,33 +218,34 @@ a {
 /* Style for food content container */
 #food-content {
     display: flex;
+    flex-direction: column;
     overflow: hidden;
     justify-content: space-between;
-    font-family: 'Inter', sans-serif;
+    font-family: hack, monospace;
 }
 
-/* Style for left side of food content */
-#left-side {
+/* Style for top of food content */
+#top {
     display: flex;
     position: sticky;
-    flex-direction: column;
 }
 
 /* Style for right side of food content */
-#right-side {
+#bottom {
     display: flex;
     flex-direction: column;
 }
 
 /* Style for form boxes */
 .form-box {
-    margin: 40px 0 30px 40px;
-    max-height: 39vh;
-    background-color: #fff;
-    max-width: 100%;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
-    border-radius: 30px;
-    width: 400px;
+    margin: 20px 0 0 20px;
+    max-height: 40vh;
+    max-width: 50%;
+    border-radius: 40px;
+    width: 380px;
+    flex: 1;
+    padding-right: 10px;
+    padding-bottom: 20px;
 }
 
 /* Style for forms inside form boxes */
@@ -253,7 +254,7 @@ a {
     height: 100%;
     background-color: #fff;
     align-items: center;
-    padding: 20px 40px;
+    padding: 20px 10px;
     flex-direction: column;
     justify-content: center;
     border-radius: 30px;
@@ -263,7 +264,7 @@ a {
 .form-box input {
     background-color: #eee;
     border: none;
-    font-family: 'Inter', sans-serif;
+    font-family: hack, monospace;
     padding: 6px 15px;
     font-size: 16px;
     margin-top: 18px;
@@ -280,14 +281,15 @@ a {
 /* Style for submit button in form boxes */
 .form-box input[type=submit] {
     cursor: pointer;
-    padding: 10px 45px;
     font-weight: 700;
     font-size: 16px;
     color: white;
     border-radius: 8px;
-    background-color: #0072C6;
+    background-color: darkblue;
     width: 20vh;
     border: 1px solid transparent;
+    font-family: hack, monospace;
+    text-align: center;
 }
 
 /* Style for add item form */
@@ -296,9 +298,13 @@ a {
     height: 100%;
 }
 
+
+
 /* Style for food table container */
 .food-table-box {
     margin: 40px 30px;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Style for food table */
@@ -324,9 +330,11 @@ a {
 }
 
 /* Style for today's list */
-#add-todays-list {
+#add_todays_chart {
     position: sticky;
-    width: 87vh;
+    width: 100%;
+    font-family: hack, monospace;
+    padding: 10px 0 10px 0;
 }
 
 /* Style for add and remove today's list output */
