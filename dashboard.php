@@ -267,7 +267,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add-todays-list']) && 
     <div id="food-list">
         <div id="food-content">
             <div id="top">
-                <div class="form-box">
+                <div class="form">
                     <form id="add-item-form" method="post" action="dashboard.php?page=food-list">
                         <input type="text" name="name" value="" placeholder="Name">
                         <input type="text" name="calories" value="" placeholder="Calories">
@@ -281,7 +281,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add-todays-list']) && 
                     </form>
                 </div>
 
-                <div class="form-box">
+                <div class="form">
                     <form id="edit-item-form" method="post" action="dashboard.php?page=food-list">
                         <label for="edit-name"></label><input id="edit-name" readonly="readonly" type="text" name="name" value="" placeholder="Name">
                         <label for="edit-calories"></label><input id="edit-calories" readonly="readonly" type="text" name="calories" value=""
@@ -318,7 +318,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add-todays-list']) && 
 
                             if (mysqli_num_rows($select_output) == 0) { ?>
                                 <tr class="food-table-item">
-                                    <td colspan="8" class="light-red">No food items added!</td>
+                                    <td colspan="8" class="error">Error: no food items were included.</td>
                                 </tr>
                                 <?php
                             }
@@ -381,7 +381,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add-todays-list']) && 
                     if ($select_output) {
                         if (mysqli_num_rows($select_output) == 0) { ?>
                             <tr class="food-table-item">
-                                <td colspan="6" class="light-red">No food items added!</td>
+                                <td colspan="6" class="error">No food items added!</td>
                             </tr>
                             <?php
                         }

@@ -71,7 +71,7 @@ nav {
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35); /* Lighter shadow */
-    background: #f5f5f7; /* Change background color to a darker shade */
+    background-color: rgba(226, 226, 226, 0.93); /* Change background color to a darker shade */
 }
 
 /* Remove list style from nav list items */
@@ -237,7 +237,7 @@ a {
 }
 
 /* Style for form boxes */
-.form-box {
+.form {
     margin: 20px 0 0 20px;
     max-height: 40vh;
     max-width: 50%;
@@ -249,10 +249,10 @@ a {
 }
 
 /* Style for forms inside form boxes */
-.form-box form {
+.form form {
     display: flex;
     height: 100%;
-    background-color: #fff;
+    background-color: rgba(226, 226, 226, 0.93);
     align-items: center;
     padding: 20px 10px;
     flex-direction: column;
@@ -261,7 +261,7 @@ a {
 }
 
 /* Style for inputs inside form boxes */
-.form-box input {
+.form input {
     background-color: #eee;
     border: none;
     font-family: hack, monospace;
@@ -274,12 +274,12 @@ a {
 }
 
 /* Remove top margin for the last input in form boxes */
-.form-box input:last-child {
+.form input:last-child {
     margin-top: 0;
 }
 
 /* Style for submit button in form boxes */
-.form-box input[type=submit] {
+.form input[type=submit] {
     cursor: pointer;
     font-weight: 700;
     font-size: 16px;
@@ -316,7 +316,8 @@ a {
 /* Style for table header in food table */
 .food-table-box .food-table thead {
     font-size: 16px;
-    background: rgba(226, 226, 226, 0.93);
+    background-color: black;
+    color: white;
 }
 
 /* Style for table data in food table */
@@ -326,7 +327,9 @@ a {
 
 /* Style for food table items */
 .food-table-item {
-    background: white;
+    background-color: rgba(226, 226, 226, 0.93);
+    text-align: center;
+    color: black;
 }
 
 /* Style for today's list */
@@ -392,7 +395,7 @@ a {
 }
 
 /* Style for light red background elements */
-.light-red {
+.error {
     background-color: rgba(130, 5, 11, 0.62);
 }
 
