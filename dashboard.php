@@ -204,9 +204,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add-todays-list']) && 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="Stylesheets/dashboard.css">
+    <script src="Scriptfiles/dashboard.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-    <script src="Scriptfiles/dashboard.js"></script>
 </head>
 <body>
 <div class="head">
@@ -218,49 +218,50 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add-todays-list']) && 
     <nav>
         <ul>
             <li>
-                <a href="#" class="logo">
-                    <img src="media/dashboard_logo.png" alt="">
-                    <span class="nav-item">FoodTracker</span>
+                <a href="#" class="dashboard_logo">
+                    <img src="media/dashboard_logo.png" alt="The Webpage logo: a bowl of fruits and veggies.">
+                    <span class="nav_item">FoodTracker</span>
                 </a>
             </li>
             <li>
                 <a id="dashboard-button" class="selected sidebar-item" href="dashboard.php?page=dashboard">
                     <span class="side-item material-icons-sharp">home</span>
-                    <span class="nav-item">Dashboard</span>
+                    <span class="nav_item">Dashboard</span>
                 </a>
             </li>
             <li>
                 <a id="food-list-button" class="sidebar-item" href="dashboard.php?page=food-list">
                     <span class="side-item material-icons-sharp">fastfood</span>
-                    <span class="nav-item">Food List</span>
+                    <span class="nav_item">Food List</span>
                 </a>
             </li>
             <li>
                 <a id="todays-list-button" class="sidebar-item" href="dashboard.php?page=todays-list">
                     <span class="side-item material-icons-sharp">calendar_today</span>
-                    <span class="nav-item">Today</span>
+                    <span class="nav_item">Today</span>
                 </a>
             </li>
             <li>
                 <a id="charts-button" class="sidebar-item" href="dashboard.php?page=charts">
                     <span class="side-item material-icons-sharp">bar_chart</span>
-                    <span class="nav-item">Chart</span>
+                    <span class="nav_item">Chart</span>
                 </a>
             </li>
             <li>
                 <a class="sidebar-item" href="dashboard.php?logout=true">
                     <span class="side-item material-icons-sharp">exit_to_app</span>
-                    <span class="nav-item">Log out</span>
+                    <span class="nav_item">Log out</span>
                 </a>
             </li>
         </ul>
     </nav>
 
     <div id="dashboard">
-        <h1 id="welcome-back">Welcome back <?php echo $user_name ?>!</h1>
-        <p class="paragraph">FoodTracker is a premium diet dashboard, giving you insight into the nutritional information
-            of the food you eat, as well as a daily plan for your meals. You can navigate the dashboard
-            on the left of the screen.</p>
+        <img class="main_page_logo" src="media/dashboard_logo.png" alt="The Webpage logo: a bowl of fruits and veggies.">
+        <h1 class="intro_title">Welcome to FoodTracker, <br><?php echo $user_name ?>.</h1>
+        <p class="intro">FoodTracker: Your premium diet dashboard. Get nutritional insights and daily meal plans with ease. Accessible navigation on the left.</p>
+        <h1 class="latest_news"><br>Latest news:</h1>
+        <p class="news">Version 1.0 offers complete access to all the latest bug fixes and safety features for your security. Happy ease of use!</p>
     </div>
 
     <div id="food-list">

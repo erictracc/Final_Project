@@ -1,11 +1,13 @@
+//A function to display the page properly
 function viewPage(page) {
     setTimeout(function () {
         showHide(page);
-    }, 60); // Delay necessary for elements to hide properly after post
+    }, 55); // Creates a delay so the elements dont show up by accident
 
     showHide(page);
 }
 
+//A function to hide and show the respect elements and their pages depending on what is clicked by the user
 function showHide(page) {
     $(document).ready(function () {
         $("#dashboard").hide();
@@ -26,6 +28,7 @@ function showHide(page) {
 }
 
 
+//A function to display the date and time at the top of the dashboard page
 window.onload = insertDateTime();
 
 $(document).ready(function () {
@@ -43,7 +46,7 @@ $(document).ready(function () {
 });
 
 
-// Insert the date and time at the top right of dashboard
+// Actually updates and shows the date and time accordingly and properly
 function insertDateTime() {
     setTimeout(function () {
         function updateDateTime() {
