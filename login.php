@@ -4,13 +4,16 @@ global $conn;
 
 include "config/util.php";
 
+
 $output = "";
 session_start();
+
 
 // If already logged in, redirect to dashboard
 if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
     header("location:dashboard.php");
 }
+
 
 // Check if login form is submitted
 if (isset($_POST['login'])) {
@@ -28,10 +31,13 @@ if (isset($_POST['login'])) {
         $output = failed("Password is required.");
     } else {
 
+
         // Query to find the user by username
         $queryUserResult = $conn->query("SELECT * FROM users WHERE username='$username'");
 
+
         if ($queryUserResult) {
+
 
             // find if the user is real
             if (mysqli_num_rows($queryUserResult) == 0) {
@@ -53,6 +59,7 @@ if (isset($_POST['login'])) {
                         $_SESSION["id"] = $id;
                         $_SESSION["username"] = $username;
 
+
                         $output = completed("Login successful! Redirecting...");
                         header("location:dashboard.php");
                     } else {
@@ -61,6 +68,7 @@ if (isset($_POST['login'])) {
                 }
             }
         } else {
+
             $output = failed("An error has occurred: " . $conn->error);
         }
 
@@ -76,11 +84,13 @@ if (isset($_POST['login'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="../Stylesheets/login.css">
+    <link rel="stylesheet" href="Stylesheets/login.css">
 </head>
+
 <body>
 <div id="login-page">
 
@@ -106,4 +116,5 @@ if (isset($_POST['login'])) {
     </div>
 </div>
 </body>
+
 </html>
