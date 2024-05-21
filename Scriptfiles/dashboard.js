@@ -3,7 +3,7 @@ function displayPage(page) {
     // Delay to prevent accidental element display
     setTimeout(function () {
         toggleVisibility(page);
-    }, 55);
+    }, 90);
     toggleVisibility(page);
 }
 
