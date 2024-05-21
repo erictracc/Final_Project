@@ -1,15 +1,16 @@
-//A function to display the page properly
-function viewPage(page) {
+// Function to display the page properly
+function displayPage(page) {
+    // Delay to prevent accidental element display
     setTimeout(function () {
-        showHide(page);
-    }, 55); // Creates a delay so the elements dont show up by accident
-
-    showHide(page);
+        toggleVisibility(page);
+    }, 55);
+    toggleVisibility(page);
 }
 
-//A function to hide and show the respect elements and their pages depending on what is clicked by the user
-function showHide(page) {
+// Function to hide and show elements and their pages based on user clicks
+function toggleVisibility(page) {
     $(document).ready(function () {
+        // Hide all pages and remove 'selected' class from buttons
         $("#dashboard").hide();
         $("#dashboard-button").removeClass('selected');
 
@@ -22,18 +23,19 @@ function showHide(page) {
         $("#charts").hide();
         $("#charts-button").removeClass('selected');
 
+        // Show selected page and add 'selected' class to its button
         $(page).show();
         $(page + "-button").addClass('selected');
     });
 }
 
-
-//A function to display the date and time at the top of the dashboard page
-window.onload = insertDateTime();
+// Function to display the date and time at the top of the dashboard page
+window.onload = includeClock();
 
 $(document).ready(function () {
     // Reload food table with new values
     $(document).on('click', '.modify-button', function () {
+        //utilizing ajax to
         $.ajax({
             url: '../dashboard.php',
             method: "GET",
@@ -45,21 +47,24 @@ $(document).ready(function () {
     });
 });
 
-
-// Actually updates and shows the date and time accordingly and properly
-function insertDateTime() {
+// Function to update and display the date and time properly
+function includeClock() {
     setTimeout(function () {
-        function updateDateTime() {
+        // Function to update date and time
+        function refreshClock() {
             const dateTimeElement = document.getElementById("date-time");
             const options = {year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'};
             const date = new Date();
 
+            // Display formatted date and time
             dateTimeElement.textContent = date.toLocaleDateString('en-US', options);
         }
 
-        updateDateTime();
+        // Initial update
+        refreshClock();
 
-        setInterval(updateDateTime, 1000);
+        // Periodic update every second
+        setInterval(refreshClock, 1000);
     }, 50);
 }
 

@@ -36,7 +36,7 @@ if (isset($_GET['page'])) {
 
     ?>
     <script>
-        viewPage('#<?php echo $page;?>')
+        displayPage('#<?php echo $page;?>')
     </script>
     <?php
 }
@@ -70,7 +70,7 @@ if (isset($_GET['page'])) {
         exit();
     }
 
-    echo "<script>viewPage('#$page');</script>";
+    echo "<script>displayPage('#$page');</script>";
 }
 
 // Add item to the food list
