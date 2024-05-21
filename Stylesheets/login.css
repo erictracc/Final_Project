@@ -6,7 +6,7 @@
 /* Body styles */
 body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Updated font for the page */
-    background: #f4f4f4;
+    background: lightseagreen;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -58,7 +58,7 @@ body {
 
 /* Heading styles */
 .login-border h1 {
-    font-family: Arial, sans-serif;
+    font-family: hack, monospace;
     color: #333;
     margin: 0 0 20px 0;
 }
@@ -71,7 +71,7 @@ body {
 
 /* Input field styles */
 .loginPageArea {
-    background-color: #f9f9f9;
+    background-color: rgba(226, 226, 226, 0.93);
     border: 1px solid #ccc;
     padding: 12px 15px;
     font-size: 16px;

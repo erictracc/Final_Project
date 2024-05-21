@@ -1,4 +1,6 @@
-<script src="Scriptfiles/dashboard.js"></script> <!-- Loads the dashboard script at beginning for proper functionality -->
+
+<!-- Loads the dashboard script at beginning for proper functionality -->
+<script src="Scriptfiles/dashboard.js"></script>
 
 <?php
 global $conn;
@@ -129,7 +131,7 @@ if ((isset($_POST['edit-confirm']) && isset($_POST['name']) && isset($_POST['cal
     $pattern = '/^\d+(\.\d+)?$/';
 
     if (!preg_match($pattern, $calories) || !preg_match($pattern, $carbohydrates) || !preg_match($pattern, $fat) || !preg_match($pattern, $protein)) {
-        $insert_output = failed("Macronutrients should only contain numbers.");
+        $insert_output = failed("Types of macronutrients must only consist of numbers.");
     }
 
     $update_result = $conn->query(
