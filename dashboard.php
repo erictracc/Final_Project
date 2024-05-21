@@ -196,6 +196,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add-todays-list']) && 
 }
 ?>
 
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -326,7 +330,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add-todays-list']) && 
                             if ($select_output) {
                                 while ($row = mysqli_fetch_assoc($select_output)) { ?>
                                     <tr class="food-table-item">
-                                        <td><input type="checkbox" name="checkbox[<?php echo $row['name']; ?>]"
+                                        <td><input type="checkbox" class="select-checkbox" name="checkbox[<?php echo $row['name']; ?>]"
                                                    value="<?php echo $row['name']; ?>"/></td>
                                         <td><?php echo $row['name']; ?></td>
                                         <td><?php echo $row['calories']; ?></td>
@@ -334,12 +338,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add-todays-list']) && 
                                         <td><?php echo $row['fat']; ?>g</td>
                                         <td><?php echo $row['protein']; ?>g</td>
                                         <td>
-                                            <a class="edit-button button"
-                                               href="dashboard.php?page=food-list&edit=<?php echo $row['name']; ?>"><span
-                                                        class="side-item material-icons-sharp">edit</span></a>
-                                            <a class="modify-button red button"
-                                               href="dashboard.php?page=food-list&delete=<?php echo $row['name']; ?>"><span
-                                                        class="side-item material-icons-sharp">delete</span></a>
+                                                <a class="edit_btn" href="dashboard.php?page=food-list&edit=<?php echo $row['name']; ?>"><span class="side-item material-icons-sharp">build</span>
+                                                <a class="delete_btn" href="dashboard.php?page=food-list&delete=<?php echo $row['name']; ?>"><span class="side-item material-icons-sharp">delete_outline</span>
                                         </td>
                                     </tr>
                                     <?php
@@ -388,7 +388,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add-todays-list']) && 
 
                         while ($row = mysqli_fetch_assoc($select_output)) { ?>
                             <tr class="food-table-item">
-                                <td><input type="checkbox" name="checkbox[<?php echo $row['name']; ?>]"
+                                <td><input type="checkbox" class="select-checkbox" name="checkbox[<?php echo $row['name']; ?>]"
                                            value="<?php echo $row['name']; ?>"/></td>
                                 <td><?php echo $row['name']; ?></td>
                                 <td><?php echo $row['calories']; ?></td>
@@ -410,7 +410,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add-todays-list']) && 
                     </thead>
                     <tfoot>
                     <tr>
-                        <td colspan="2">Totals</td>
+                        <td class="total_calc" colspan="2">Totals</td>
                         <td><?php echo $total_calories; ?></td>
                         <td><?php echo $total_carbs; ?>g</td>
                         <td><?php echo $total_fat; ?>g</td>
@@ -426,11 +426,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add-todays-list']) && 
         </div>
     </div>
 
-
     <div id="charts">
         <div id="chart-box">
-            <canvas id="macronutrients" width="800" height="800"></canvas>
+            <canvas id="macronutrients" height="400" width="400"></canvas>
             <script>
+                // Update chart data
                 let totalCalories = <?php echo $total_calories; ?>;
                 let totalCarbs = <?php echo $total_carbs; ?>;
                 let totalFat = <?php echo $total_fat; ?>;
@@ -443,7 +443,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add-todays-list']) && 
 
                 const labels = ["Protein", "Carbohydrates", "Fat"];
                 const percentages = [proteinPercentage, carbsPercentage, fatPercentage];
-                const colours = ["Red", "Blue", "Green"];
+
+                // Update chart colors
+                const colours = ["#FF5733", "#33FF57", "#3357FF"]; // Updated to hexadecimal color codes
 
                 // Timeout necessary so chart doesn't display when switching pages
                 setTimeout(function () {
@@ -459,7 +461,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add-todays-list']) && 
                         options: {
                             title: {
                                 display: true,
-                                text: "Macronutrient Distribution"
+                                text: "Updated Macronutrient Chart" // chart title
                             }
                         }
                     });
@@ -467,6 +469,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add-todays-list']) && 
             </script>
         </div>
     </div>
+
 
 </div>
 <div class="foot">
