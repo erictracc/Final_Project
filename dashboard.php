@@ -223,12 +223,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove-todays-items']
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 </head>
 <body>
+<!-- Header section displaying the current date and time -->
 <div class="head">
     <div class="date-time-box">
         <h2 id="date-time"></h2>
     </div>
 </div>
+
 <div class="box">
+    <!-- Navigation menu -->
     <nav>
         <ul>
             <li>
@@ -270,6 +273,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove-todays-items']
         </ul>
     </nav>
 
+    <!-- Dashboard section -->
     <div id="dashboard">
         <img class="main_page_logo" src="media/dashboard_logo.png" alt="The Webpage logo: a bowl of fruits and veggies.">
         <h1 class="intro_title">Welcome to FoodTracker, <br><?php echo $user_name ?>.</h1>
@@ -278,9 +282,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove-todays-items']
         <p class="news">Version 1.0 offers complete access to all the latest bug fixes and safety features for your security. Happy ease of use!</p>
     </div>
 
+    <!-- Food list section -->
     <div id="food-list">
         <div id="food-content">
             <div id="top">
+                <!-- Form to add new food items -->
                 <div class="form">
                     <form id="add-item-form" method="post" action="dashboard.php?page=food-list">
                         <input type="text" name="name" value="" placeholder="Name">
@@ -295,6 +301,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove-todays-items']
                     </form>
                 </div>
 
+                <!-- Form to edit existing food items -->
                 <div class="form">
                     <form id="edit-item-form" method="post" action="dashboard.php?page=food-list">
                         <label for="edit-name"></label><input id="edit-name" readonly="readonly" type="text" name="name" value="" placeholder="Name">
@@ -314,6 +321,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove-todays-items']
             </div>
 
             <div id="bottom">
+                <!-- Table displaying the list of food items -->
                 <div class="food-table-box">
                     <form action="dashboard.php?page=food-list" method="post">
                         <table id="food-table" class="food-table">
@@ -348,8 +356,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove-todays-items']
                                         <td><?php echo $row['fat']; ?>g</td>
                                         <td><?php echo $row['protein']; ?>g</td>
                                         <td>
-                                            <a class="edit_btn" href="dashboard.php?page=food-list&edit=<?php echo $row['name']; ?>"><span class="side-item material-icons-sharp">build</span>
-                                                <a class="delete_btn" href="dashboard.php?page=food-list&delete=<?php echo $row['name']; ?>"><span class="side-item material-icons-sharp">delete_outline</span>
+                                            <a class="edit_btn" href="dashboard.php?page=food-list&edit=<?php echo $row['name']; ?>"><span class="side-item material-icons-sharp">build</span></a>
+                                            <a class="delete_btn" href="dashboard.php?page=food-list&delete=<?php echo $row['name']; ?>"><span class="side-item material-icons-sharp">delete_outline</span></a>
                                         </td>
                                     </tr>
                                     <?php
@@ -370,6 +378,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove-todays-items']
         </div>
     </div>
 
+    <!-- Today's list section -->
     <div id="todays-list">
         <div class="food-table-box">
             <form action="dashboard.php?page=todays-list" method="post">
