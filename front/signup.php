@@ -75,7 +75,7 @@ if (isset($_POST['signup'])) { // Changed 'register' to 'signup'
 <head>
     <meta charset="UTF-8">
     <title>Signup</title>
-    <link rel="stylesheet" href="Stylesheets/login.css">
+    <link rel="stylesheet" href="../Stylesheets/login.css">
 </head>
 <body>
 <div id="login-page">

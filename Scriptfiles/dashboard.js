@@ -35,7 +35,7 @@ window.onload = includeClock();
 $(document).ready(function () {
     // Reload food table with new values
     $(document).on('click', '.modify-button', function () {
-        //utilizing ajax to
+        // Utilizing ajax to fetch new data
         $.ajax({
             url: '../dashboard.php',
             method: "GET",
@@ -53,11 +53,12 @@ function includeClock() {
         // Function to update date and time
         function refreshClock() {
             const dateTimeElement = document.getElementById("date-time");
-            const options = {year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'};
+            const dateOptions = { year: 'numeric', month: 'numeric', day: 'numeric' };
+            const timeOptions = { hour: 'numeric', minute: 'numeric', second: 'numeric' };
             const date = new Date();
 
-            // Display formatted date and time
-            dateTimeElement.textContent = date.toLocaleDateString('en-US', options);
+            // Display formatted date and time including seconds
+            dateTimeElement.textContent = date.toLocaleDateString('en-US', dateOptions) + ' ' + date.toLocaleTimeString('en-US', timeOptions);
         }
 
         // Initial update
@@ -67,6 +68,7 @@ function includeClock() {
         setInterval(refreshClock, 1000);
     }, 50);
 }
+
 
 
 

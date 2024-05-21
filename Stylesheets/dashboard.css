@@ -1,9 +1,9 @@
 /* Remove default margin, padding, and outline; remove text decoration from all elements */
 * {
+    outline: 0;
     padding: 0;
     margin: 0;
     text-decoration: none;
-    outline: 0;
 }
 
 /* Set the base font size for the HTML document */
@@ -13,20 +13,20 @@ html {
 
 /* Set base styles for the body element */
 body {
+    overflow-y: auto;
+    overflow-x: auto;
     background: lightseagreen; /* Light gray background */
     font-size: 0.88rem;
-    height: 100%;
     font-family: hack, monospace;
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: auto;
     color: rgba(43, 43, 43, 0.93);
+    height: 100%;
+    width: 100%;
 }
 
 /* Make HTML and body elements display as flex containers in column direction */
 html, body {
-    flex-direction: column;
     display: flex;
+    flex-direction: column;
 }
 
 /* Set the default link color */
@@ -36,42 +36,42 @@ a {
 
 /* Style for h1 elements */
 h1 {
-    font-size: 3rem;
     font-weight: 660;
+    font-size: 3rem;
 }
 
 /* Style for .box elements */
 .box {
-    display: flex;
-    margin-bottom: 50px;
-    margin-top: 10px;
     width: auto;
+    margin-top: 10px;
+    margin-bottom: 50px;
+    display: flex;
 }
 
 /* Style for date-time in header */
 .head #date-time {
-    font-family: hack, monospace;
-    text-align: center;
-    width: 100%;
-    height: 30px;
     font-size: 20px;
-    background-color: #1C1C1C;
+    font-family: hack, monospace;
     color: white;
+    height: 30px;
+    background-color: #1C1C1C;
     position: relative;
+    width: 100%;
+    text-align: center;
 }
 
 /* Style for nav element */
 nav {
+    height: 83vh;
+    background-color: rgba(226, 226, 226, 0.93); /* Change background color to a darker shade */
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35); /* Lighter shadow */
+    top: 0;
     font-family: hack, monospace;
     width: 50vh;
-    position: sticky;
-    height: 83vh;
-    top: 0;
     bottom: 0;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35); /* Lighter shadow */
-    background-color: rgba(226, 226, 226, 0.93); /* Change background color to a darker shade */
+    position: sticky;
 }
 
 /* Remove list style from nav list items */
@@ -81,52 +81,52 @@ nav li {
 
 /* Style for .side-item elements in nav */
 nav .side-item {
-    font-size: 30px;
-    top: 8px;
+    height: 40px;
     text-align: center;
     position: relative;
-    height: 40px;
     width: 70px;
+    font-size: 30px;
+    top: 8px;
 }
 
 /* Style for .nav-item elements */
 .nav_item {
-    margin-left: 10px;
-    font-family: hack, monospace;
-    position: relative;
     font-size: 18px;
-    font-weight: 600;
+    margin-left: 10px;
+    position: relative;
     color: #005aa6;
+    font-weight: 600;
+    font-family: hack, monospace;
 }
 
 /* Style for hover and selected state of sidebar items */
 .sidebar-item:hover, .selected {
-    background: lightblue;
     margin-left: 0;
-    overflow: hidden;
+    background: lightblue;
     color: #0072C6;
+    overflow: hidden;
 }
 
 /* Style for buttons */
 .button {
+    border-radius: 8px;
+    padding: 4px 6px;
+    font-family: hack, monospace;
+    border: 1px solid transparent;
+    background-color: darkblue;
+    width: 10vh;
     cursor: pointer;
     font-weight: 300;
-    margin: 4px 0;
-    border-radius: 8px;
-    background-color: darkblue;
-    border: 1px solid transparent;
-    width: 10vh;
     font-size: 16px;
-    padding: 4px 6px;
+    margin: 4px 0;
     color: white;
-    font-family: hack, monospace;
 }
 
 /* Style for the logo container */
 .dashboard_logo {
+    display: flex;
     text-align: center;
     margin: 10px 0 20px 20px;
-    display: flex;
 }
 
 /* Style for logo image */
@@ -138,34 +138,35 @@ nav .side-item {
 
 /* Style for logo text */
 .dashboard_logo span {
-    font-size: 21px;
+    padding-left: 15px;
     top: 15px;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    padding-left: 15px;
+    font-size: 21px;
 }
 
+/* Style for main page logo */
 .main_page_logo {
-    border-radius: 50%;
-    height: 145px;
-    width: 145px;
-    left: 56%;
     position: absolute;
+    border-radius: 50%;
+    left: 56%;
+    width: 145px;
+    height: 145px;
 }
 
 /* Style for all of the links */
 a {
-    font-size: 14px;
-    padding: 10px;
     display: table;
-    width: 280px;
-    position: relative;
     color: rgb(85, 83, 83);
+    width: 280px;
+    font-size: 14px;
+    position: relative;
+    padding: 10px;
 }
 
 /* Style to make the dashboard hidden */
 #dashboard {
-    display: none;
     text-align: center;
+    display: none;
     width: 100%;
 }
 
@@ -178,57 +179,57 @@ a {
 
 /* Style for login successful section */
 .intro_title {
+    font-family: hack, monospace;
+    position: absolute;
+    left: 45%;
     text-align: center;
     top: 30vh;
-    left: 45%;
-    position: absolute;
-    font-family: hack, monospace;
 }
 
 /* Style for intro elements */
 .intro {
     margin: 0 30px 0 30px;
+    font-family: hack, monospace;
     color: rgba(43, 43, 43, 0.93);
     font-size: 18px;
-    top: 45vh;
-    position: absolute;
-    font-family: hack, monospace;
     font-weight: 900;
+    position: absolute;
+    top: 45vh;
 }
 
 /* Style for the latest news title */
 .latest_news {
+    left: 50%;
     text-align: center;
     position: absolute;
-    top: 50vh;
-    left: 50%;
     font-family: hack, monospace;
+    top: 50vh;
 }
 
 /* Style for the news paragraph */
 .news {
-    text-align: center;
-    position: absolute;
-    font-family: hack, monospace;
     margin: 0 30px 0 30px;
+    font-family: hack, monospace;
+    text-align: center;
     font-size: 18px;
-    top: 65vh;
+    position: absolute;
     font-weight: 900;
+    top: 65vh;
 }
 
 /* Style for food content container */
 #food-content {
+    font-family: hack, monospace;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
     justify-content: space-between;
-    font-family: hack, monospace;
+    overflow: hidden;
 }
 
 /* Style for top of food content */
 #top {
-    display: flex;
     position: sticky;
+    display: flex;
 }
 
 /* Style for right side of food content */
@@ -239,39 +240,39 @@ a {
 
 /* Style for form boxes */
 .form {
-    margin: 20px 0 0 20px;
-    max-height: 40vh;
-    max-width: 50%;
     border-radius: 40px;
-    width: 380px;
     flex: 1;
+    max-width: 50%;
+    width: 380px;
     padding-right: 10px;
     padding-bottom: 20px;
+    margin: 20px 0 0 20px;
+    max-height: 40vh;
 }
 
 /* Style for forms inside form boxes */
 .form form {
     display: flex;
-    height: 100%;
-    background-color: rgba(226, 226, 226, 0.93);
     align-items: center;
-    padding: 20px 10px;
-    flex-direction: column;
+    background-color: rgba(226, 226, 226, 0.93);
     justify-content: center;
+    flex-direction: column;
+    padding: 20px 10px;
     border-radius: 30px;
+    height: 100%;
 }
 
 /* Style for inputs inside form boxes */
 .form input {
-    background-color: #eee;
-    border: none;
     font-family: hack, monospace;
-    padding: 6px 15px;
-    font-size: 16px;
-    margin-top: 18px;
-    outline: none;
+    border: none;
     border-radius: 8px;
+    outline: none;
+    margin-top: 18px;
+    font-size: 16px;
     width: 100%;
+    padding: 6px 15px;
+    background-color: #eee;
 }
 
 /* Remove top margin for the last input in form boxes */
@@ -281,22 +282,22 @@ a {
 
 /* Style for submit button in form boxes */
 .form input[type=submit] {
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 16px;
-    color: white;
-    border-radius: 8px;
-    background-color: darkblue;
-    width: 20vh;
     border: 1px solid transparent;
     font-family: hack, monospace;
+    background-color: darkblue;
+    color: white;
+    cursor: pointer;
+    font-weight: 700;
+    border-radius: 8px;
+    font-size: 16px;
     text-align: center;
+    width: 20vh;
 }
 
 /* Style for add item form */
 #add-item-form {
-    transition: all 0.8s ease-in-out;
     height: 100%;
+    transition: all 0.8s ease-in-out;
 }
 
 /* Style for the select option in both charts */
@@ -306,24 +307,23 @@ a {
     transform: scale(1.5); /* Increased the scale for readability */
 }
 
-
 /* Style for food table container */
 .food-table-box {
-    margin: 40px 30px;
     display: flex;
     flex-direction: column;
+    margin: 40px 30px;
 }
 
 /* Style for food table */
 .food-table-box .food-table {
-    width: 100%;
     text-align: center;
+    width: 100%;
 }
 
 /* Style for table header in food table */
 .food-table-box .food-table thead {
-    font-size: 16px;
     background-color: black;
+    font-size: 16px;
     color: white;
 }
 
@@ -334,17 +334,17 @@ a {
 
 /* Style for food table items */
 .food-table-item {
-    background-color: rgba(226, 226, 226, 0.93);
     text-align: center;
+    background-color: rgba(226, 226, 226, 0.93);
     color: black;
 }
 
 /* Style for today's list */
 #add_todays_chart {
-    position: sticky;
-    width: 100%;
     font-family: hack, monospace;
+    position: sticky;
     padding: 10px 0 10px 0;
+    width: 100%;
 }
 
 /* Style for add and remove today's list output */
@@ -368,6 +368,7 @@ a {
     background-color: rgba(226, 226, 226, 0.93);
 }
 
+/* Style for total calculation */
 .total_calc {
     background-color: rgba(226, 226, 226, 0.93);
 }
@@ -377,41 +378,41 @@ a {
     width: 1000px;
     height: 1000px;
 }
+
 /* Style for invisible elements */
 .invisible {
     display: none;
 }
 
+/* Style for charts container */
 #charts {
-     width: 400px;
-     height: 400px;
-     margin: 0 auto;
+    padding: 20px;
+    margin: 0 auto;
+    width: 400px;
+    height: 400px;
     background-color: rgba(226, 226, 226, 0.93);
-     border-radius: 10px;
-     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
-     padding: 20px;
- }
-
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+}
 
 /* Style for footer */
 .foot {
-    width: 100%;
-    text-align: center;
-    bottom: 0;
-    height: 30px;
     background-color: #1C1C1C;
+    height: 30px;
+    text-align: center;
+    width: 100%;
+    bottom: 0;
 }
 
 /* Style for footer content */
 .foot-cont {
+    font-size: 14px;
     font-family: hack, monospace;
     padding-top: 10px;
     color: #fff;
-    font-size: 14px;
 }
 
 /* Style for error messages */
 .error {
     background-color: rgba(130, 5, 11, 0.62);
 }
-
