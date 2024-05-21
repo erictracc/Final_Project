@@ -47,6 +47,32 @@ if (isset($_GET['logout'])) {
     //exit();
 }
 
+// Redirect to login page if the user is not logged in
+if (!isset($_SESSION["logged_in"])) {
+    header("Location: login.php");
+    exit();
+}
+
+// Initialize output variables
+$insert_output = $edit_output = $add_to_todays_list_output = $remove_from_todays_list_output = "";
+
+// Retrieve session variables
+$user_id = $_SESSION['id'];
+$user_name = $_SESSION['username'];
+
+// Validate the 'page' parameter
+if (isset($_GET['page'])) {
+    $page = $_GET['page'];
+
+    // Redirect to the default page if an invalid page is requested
+    if (!in_array($page, ["dashboard", "food-list", "todays-list", "charts"])) {
+        header("Location: dashboard.php?page=dashboard");
+        exit();
+    }
+
+    echo "<script>viewPage('#$page');</script>";
+}
+
 // Add item to the food list
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add'], $_POST['name'], $_POST['calories'], $_POST['carbohydrates'], $_POST['fat'], $_POST['protein'])) {
     $name = $_POST['name'];
@@ -58,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add'], $_POST['name']
     $pattern = '/^\d+(\.\d+)?$/';
 
     if (!preg_match($pattern, $calories) || !preg_match($pattern, $carbohydrates) || !preg_match($pattern, $fat) || !preg_match($pattern, $protein)) {
-        $insert_output = failed("Macronutrients should only contain numbers.");
+        $insert_output = failed("Macronutrient values must be numeric.");
     } else {
         $insert_query = $conn->prepare(
             "INSERT INTO `food_items` (`user_id`, `name`, `calories`, `carbohydrates`, `fat`, `protein`) VALUES (?, ?, ?, ?, ?, ?)"
@@ -66,9 +92,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add'], $_POST['name']
         $insert_query->bind_param('issddd', $user_id, $name, $calories, $carbohydrates, $fat, $protein);
 
         if ($insert_query->execute()) {
-            $insert_output = completed("Successfully added food item.");
+            $insert_output = completed("Food item added successfully.");
         } else {
-            $insert_output = failed("This food already exists.");
+            $insert_output = failed("The food item already exists.");
         }
     }
 }
@@ -121,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit-confirm'], $_POS
     $pattern = '/^\d+(\.\d+)?$/';
 
     if (!preg_match($pattern, $calories) || !preg_match($pattern, $carbohydrates) || !preg_match($pattern, $fat) || !preg_match($pattern, $protein)) {
-        $edit_output = failed("Macronutrients should only contain numbers.");
+        $edit_output = failed("Please enter numeric values for macronutrients.");
     } else {
         $update_query = $conn->prepare(
             "UPDATE `food_items` SET `calories` = ?, `carbohydrates` = ?, `fat` = ?, `protein` = ? WHERE `user_id` = ? AND `name` = ?"
@@ -129,9 +155,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit-confirm'], $_POS
         $update_query->bind_param('dddiss', $calories, $carbohydrates, $fat, $protein, $user_id, $name);
 
         if ($update_query->execute()) {
-            $edit_output = completed("Successfully edited the food item.");
+            $edit_output = completed("Food item updated successfully.");
         } else {
-            $edit_output = failed("Error while editing this food item.");
+            $edit_output = failed("Failed to update the food item.");
         }
     }
 }
@@ -153,12 +179,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add-todays-list'], $_
             $insert_query->bind_param('issddd', $user_id, $row['name'], $row['calories'], $row['carbohydrates'], $row['fat'], $row['protein']);
 
             if ($insert_query->execute()) {
-                $add_to_todays_list_output = completed("Successfully added items to today's list.");
+                $add_to_todays_list_output = completed("Items added to today's list successfully.");
             } else {
-                $add_to_todays_list_output = failed("Error while adding items to today's list.");
+                $add_to_todays_list_output = failed("Error adding items to today's list.");
             }
         } else {
-            $add_to_todays_list_output = failed("Error while adding items to today's list.");
+            $add_to_todays_list_output = failed("Error adding items to today's list.");
         }
     }
 }
@@ -172,9 +198,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove-todays-items']
         $remove_query->bind_param('is', $user_id, $name);
 
         if ($remove_query->execute()) {
-            $remove_from_todays_list_output = completed("Successfully removed items from today's list.");
+            $remove_from_todays_list_output = completed("Items removed from today's list successfully.");
         } else {
-            $remove_from_todays_list_output = failed("Error while removing items from today's list.");
+            $remove_from_todays_list_output = failed("Error removing items from today's list.");
             error_log("Error removing item '$name': " . $conn->error);
         }
     }
@@ -322,7 +348,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove-todays-items']
                                         <td><?php echo $row['fat']; ?>g</td>
                                         <td><?php echo $row['protein']; ?>g</td>
                                         <td>
-                                                <a class="edit_btn" href="dashboard.php?page=food-list&edit=<?php echo $row['name']; ?>"><span class="side-item material-icons-sharp">build</span>
+                                            <a class="edit_btn" href="dashboard.php?page=food-list&edit=<?php echo $row['name']; ?>"><span class="side-item material-icons-sharp">build</span>
                                                 <a class="delete_btn" href="dashboard.php?page=food-list&delete=<?php echo $row['name']; ?>"><span class="side-item material-icons-sharp">delete_outline</span>
                                         </td>
                                     </tr>
