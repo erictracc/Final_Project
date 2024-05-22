@@ -393,6 +393,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove-todays-items']
         </div>
     </div>
 
+
     <!-- Today's list section -->
     <div id="todays-list">
         <div class="food-table-box">
@@ -506,8 +507,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove-todays-items']
 
 
 </div>
+
 <div class="foot">
     <p class="foot-cont">&copy; 2023 FoodTracker. All rights are reserved.</p>
 </div>
+
 </body>
+
 </html>

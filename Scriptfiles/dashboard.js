@@ -12,6 +12,7 @@ function displayPage(page) {
 // Function to hide and show elements and their pages based on user clicks
 function toggleVisibility(page) {
     $(document).ready(function () {
+
         // Hide all pages and remove 'selected' class from buttons
         $("#dashboard").hide();
         $("#dashboard-button").removeClass('selected');
@@ -24,6 +25,7 @@ function toggleVisibility(page) {
 
         $("#charts").hide();
         $("#charts-button").removeClass('selected');
+
 
         // Show selected page and add 'selected' class to its button
         $(page).show();
@@ -50,6 +52,7 @@ $(document).ready(function () {
         });
     });
 });
+
 
 // Function to update and display the date and time properly
 function includeClock() {
