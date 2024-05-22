@@ -1,10 +1,11 @@
 <!-- Loads the dashboard script at beginning for proper functionality -->
 <script src="Scriptfiles/dashboard.js"></script>
 
+
 <?php
 global $conn;
 
-include "config/util.php";
+include "config/util.php"; //has database connections, configurations, and functions for completed, failed, and password hash
 
 session_start();
 
@@ -17,6 +18,7 @@ if (str_ends_with($_SERVER['REQUEST_URI'], "php") || !str_contains($_SERVER['REQ
 if (!isset($_SESSION["logged_in"])) {
     header("location:login.php");
 }
+
 
 
 // Output initializations
@@ -35,9 +37,13 @@ if (isset($_GET['page'])) {
     }
 
     ?>
+
+
     <script>
         displayPage('#<?php echo $page;?>')
     </script>
+
+
     <?php
 }
 
@@ -47,22 +53,27 @@ if (isset($_GET['logout'])) {
     //exit();
 }
 
+
 // Redirect to login page if the user is not logged in
 if (!isset($_SESSION["logged_in"])) {
     header("Location: login.php");
     exit();
 }
 
+
 // Initialize output variables
 $insert_output = $edit_output = $add_to_todays_list_output = $remove_from_todays_list_output = "";
+
 
 // Retrieve session variables
 $user_id = $_SESSION['id'];
 $user_name = $_SESSION['username'];
 
+
 // Validate the 'page' parameter
 if (isset($_GET['page'])) {
     $page = $_GET['page'];
+
 
     // Redirect to the default page if an invalid page is requested
     if (!in_array($page, ["dashboard", "food-list", "todays-list", "charts"])) {
@@ -73,6 +84,7 @@ if (isset($_GET['page'])) {
     echo "<script>displayPage('#$page');</script>";
 }
 
+
 // Add item to the food list
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add'], $_POST['name'], $_POST['calories'], $_POST['carbohydrates'], $_POST['fat'], $_POST['protein'])) {
     $name = $_POST['name'];
@@ -81,7 +93,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add'], $_POST['name']
     $fat = $_POST['fat'];
     $protein = $_POST['protein'];
 
+
     $pattern = '/^\d+(\.\d+)?$/';
+
 
     if (!preg_match($pattern, $calories) || !preg_match($pattern, $carbohydrates) || !preg_match($pattern, $fat) || !preg_match($pattern, $protein)) {
         $insert_output = failed("Macronutrient values must be numeric.");
@@ -208,6 +222,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove-todays-items']
     $remove_from_todays_list_output = failed("No items selected or invalid request.");
 }
 ?>
+
 
 
 <!DOCTYPE html>
