@@ -404,6 +404,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove-todays-items']
 
     <!-- Today's list section -->
     <div id="todays-list">
+
         <div class="food-table-box">
             <form action="dashboard.php?page=todays-list" method="post">
                 <table id="todays-list-table" class="food-table">
