@@ -1,3 +1,4 @@
+
 // Function to display the page properly
 function displayPage(page) {
     // Delay to prevent accidental element display
@@ -6,6 +7,7 @@ function displayPage(page) {
     }, 90);
     toggleVisibility(page);
 }
+
 
 // Function to hide and show elements and their pages based on user clicks
 function toggleVisibility(page) {
@@ -29,8 +31,10 @@ function toggleVisibility(page) {
     });
 }
 
+
 // Function to display the date and time at the top of the dashboard page
 window.onload = includeClock();
+
 
 $(document).ready(function () {
     // Reload food table with new values
