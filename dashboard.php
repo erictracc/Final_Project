@@ -9,17 +9,15 @@ include "config/util.php"; //has database connections, configurations, and funct
 
 session_start();
 
-// Redirect user if they do not select a page or enter an invalid url
-if (str_ends_with($_SERVER['REQUEST_URI'], "php") || !str_contains($_SERVER['REQUEST_URI'], "dashboard.php?page=")) {
-    header("location:dashboard.php?page=dashboard");
-}
-
 // Redirect user to login page if not logged in
 if (!isset($_SESSION["logged_in"])) {
     header("location:login.php");
 }
 
-
+// Redirect user if they do not select a page or enter an invalid url
+if (str_ends_with($_SERVER['REQUEST_URI'], "php") || !str_contains($_SERVER['REQUEST_URI'], "dashboard.php?page=")) {
+    header("location:dashboard.php?page=dashboard");
+}
 
 // Output initializations
 $insert_output = $edit_output = $add_to_todays_list_output = $remove_from_todays_list_output = "";
@@ -204,23 +202,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add-todays-list'], $_
 }
 
 // Remove items from today's list
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove-todays-items'], $_POST['checkbox'])) {
-    $checkbox = $_POST['checkbox'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove-todays-items'])) {
+    if (isset($_POST['checkbox'])) {
+        $checkbox = $_POST['checkbox'];
 
-    foreach ($checkbox as $name) {
-        $remove_query = $conn->prepare("DELETE FROM `todays_items` WHERE `user_id` = ? AND `name` = ?");
-        $remove_query->bind_param('is', $user_id, $name);
+        // Check if checkboxes are selected
+        if (!empty($checkbox)) {
+            foreach ($checkbox as $name) {
+                $remove_query = $conn->prepare("DELETE FROM `todays_items` WHERE `user_id` = ? AND `name` = ?");
+                $remove_query->bind_param('is', $user_id, $name);
 
-        if ($remove_query->execute()) {
-            $remove_from_todays_list_output = completed("Items removed from today's list successfully.");
+                if ($remove_query->execute()) {
+                    $remove_from_todays_list_output = completed("Items removed from today's list successfully.");
+                } else {
+                    $remove_from_todays_list_output = failed("Error removing items from today's list.");
+                    error_log("Error removing item '$name': " . $conn->error);
+                }
+            }
         } else {
-            $remove_from_todays_list_output = failed("Error removing items from today's list.");
-            error_log("Error removing item '$name': " . $conn->error);
+            $remove_from_todays_list_output = failed("No items selected.");
         }
+    } else {
+        $remove_from_todays_list_output = failed("No checkboxes submitted.");
     }
 } else {
-    $remove_from_todays_list_output = failed("No items selected or invalid request.");
+    $remove_from_todays_list_output = ""; // No action required when opening the page
 }
+
 ?>
 
 
@@ -380,7 +388,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove-todays-items']
                             }
                             ?>
                             <input id="add_todays_chart" class="button" type="submit" name="add-todays-list"
-                                   value="Click Here to Add Selected Items to Today's Chart">
+                                   value="Click Here to Add Selected Items to The Today's Chart">
                             </thead>
                         </table>
                     </form>
@@ -440,8 +448,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove-todays-items']
                         }
                     }
                     ?>
-                    <input id="remove-todays-list" class="button" type="submit" name="remove-todays-items"
-                           value="Remove Checked Items From Today's List">
+                    <input id="remove_today_chart" class="button" type="submit" name="remove-todays-items"
+                           value="Click here to delete items from the todays chart">
                     </thead>
                     <tfoot>
                     <tr>

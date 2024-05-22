@@ -236,6 +236,7 @@ a {
 #bottom {
     display: flex;
     flex-direction: column;
+    padding-top: 75px;
 }
 
 /* Style for form boxes */
@@ -311,13 +312,13 @@ a {
 .food-table-box {
     display: flex;
     flex-direction: column;
-    margin: 40px 30px;
+    margin: 20px 10px;
 }
 
 /* Style for food table */
 .food-table-box .food-table {
     text-align: center;
-    width: 100%;
+    width: 90%;
 }
 
 /* Style for table header in food table */
@@ -329,7 +330,7 @@ a {
 
 /* Style for table data in food table */
 .food-table-box .food-table td {
-    padding: 20px;
+    padding: 10px;
 }
 
 /* Style for food table items */
@@ -343,14 +344,9 @@ a {
 #add_todays_chart {
     font-family: hack, monospace;
     position: sticky;
-    padding: 10px 0 10px 0;
-    width: 100%;
-}
-
-/* Style for add and remove today's list output */
-#add-todays-list-output, #remove-todays-list-output {
-    padding-top: 20px;
-    font-size: 20px;
+    padding: 10px 0 10px 20px;
+    width: 50%;
+    left: 20%;
 }
 
 /* Hide today's list */
@@ -359,8 +355,18 @@ a {
 }
 
 /* Style for today's list and remove today's list */
-#todays-list, #remove-todays-list {
-    width: 100%;
+#todays-list {
+    width: 40%;
+}
+
+#remove_today_chart {
+    width: 90%;
+}
+
+/* Style for add and remove today's list output */
+#add-todays-list-output, #remove-todays-list-output {
+    padding-top: 10px;
+    font-size: 18px;
 }
 
 /* Style for the footer with calculations in today's list */
