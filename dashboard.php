@@ -387,10 +387,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove-todays-items']
                                 }
                             }
                             ?>
-                            <input id="add_todays_chart" class="button" type="submit" name="add-todays-list"
-                                   value="Click Here to Add Selected Items to The Today's Chart">
                             </thead>
                         </table>
+                        <input id="add_todays_chart" class="button" type="submit" name="add-todays-list"
+                               value="Click Here to Add Selected Items to The Today's Chart">
                     </form>
                 </div>
 
@@ -449,8 +449,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove-todays-items']
                         }
                     }
                     ?>
-                    <input id="remove_today_chart" class="button" type="submit" name="remove-todays-items"
-                           value="Click here to delete items from the todays chart">
                     </thead>
                     <tfoot>
                     <tr>
@@ -462,6 +460,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove-todays-items']
                     </tr>
                     </tfoot>
                 </table>
+                <input id="remove_today_chart" class="button" type="submit" name="remove-todays-items"
+                       value="Click here to delete items from the todays chart">
             </form>
 
             <div id="remove-todays-items-output">
