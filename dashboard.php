@@ -7,7 +7,9 @@ global $conn;
 
 include "config/util.php"; //has database connections, configurations, and functions for completed, failed, and password hash
 
+
 session_start();
+
 
 // Redirect user to login page if not logged in
 if (!isset($_SESSION["logged_in"])) {
@@ -19,8 +21,10 @@ if (str_ends_with($_SERVER['REQUEST_URI'], "php") || !str_contains($_SERVER['REQ
     header("location:dashboard.php?page=dashboard");
 }
 
+
 // Output initializations
 $insert_output = $edit_output = $add_to_todays_list_output = $remove_from_todays_list_output = "";
+
 
 // Session variables
 $user_id = $_SESSION['id'];
@@ -59,13 +63,7 @@ if (!isset($_SESSION["logged_in"])) {
 }
 
 
-// Initialize output variables
-$insert_output = $edit_output = $add_to_todays_list_output = $remove_from_todays_list_output = "";
 
-
-// Retrieve session variables
-$user_id = $_SESSION['id'];
-$user_name = $_SESSION['username'];
 
 
 // Validate the 'page' parameter
@@ -247,54 +245,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove-todays-items']
 </head>
 <body>
 <!-- Header section displaying the current date and time -->
-<div class="head">
-    <div class="date-time-box">
-        <h2 id="date-time"></h2>
-    </div>
-</div>
+<?php include 'includes/header.php'; ?>
+
 
 <div class="box">
     <!-- Navigation menu -->
-    <nav>
-        <ul>
-            <li>
-                <a href="#" class="dashboard_logo">
-                    <img src="media/dashboard_logo.png" alt="The Webpage logo: a bowl of fruits and veggies.">
-                    <span class="nav_item">FoodTracker</span>
-                </a>
-            </li>
-            <li>
-                <a id="dashboard-button" class="selected sidebar-item" href="dashboard.php?page=dashboard">
-                    <span class="side-item material-icons-sharp">home</span>
-                    <span class="nav_item">Dashboard</span>
-                </a>
-            </li>
-            <li>
-                <a id="food-list-button" class="sidebar-item" href="dashboard.php?page=food-list">
-                    <span class="side-item material-icons-sharp">fastfood</span>
-                    <span class="nav_item">Food List</span>
-                </a>
-            </li>
-            <li>
-                <a id="todays-list-button" class="sidebar-item" href="dashboard.php?page=todays-list">
-                    <span class="side-item material-icons-sharp">calendar_today</span>
-                    <span class="nav_item">Today</span>
-                </a>
-            </li>
-            <li>
-                <a id="charts-button" class="sidebar-item" href="dashboard.php?page=charts">
-                    <span class="side-item material-icons-sharp">bar_chart</span>
-                    <span class="nav_item">Chart</span>
-                </a>
-            </li>
-            <li>
-                <a class="sidebar-item" href="dashboard.php?logout=true">
-                    <span class="side-item material-icons-sharp">exit_to_app</span>
-                    <span class="nav_item">Log out</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+    <?php include 'navigation_menu.php'; ?>
 
     <!-- Dashboard section -->
     <div id="dashboard">
@@ -517,9 +473,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove-todays-items']
 
 </div>
 
-<div class="foot">
-    <p class="foot-cont">&copy; 2023 FoodTracker. All rights are reserved.</p>
-</div>
+<?php include 'includes/footer.php'; ?>
 
 </body>
 
