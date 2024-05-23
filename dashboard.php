@@ -1,6 +1,7 @@
-<!-- Loads the dashboard script at beginning for proper functionality -->
-<script src="Scriptfiles/dashboard.js"></script>
 
+<!-- Loads the dashboard script at beginning for proper functionality -->
+
+<script src="Scriptfiles/dashboard.js"></script>
 
 <?php
 global $conn;
@@ -253,223 +254,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove-todays-items']
     <?php include 'navigation_menu.php'; ?>
 
     <!-- Dashboard section -->
-    <div id="dashboard">
-        <img class="main_page_logo" src="media/dashboard_logo.png" alt="The Webpage logo: a bowl of fruits and veggies.">
-        <h1 class="intro_title">Welcome to FoodTracker, <br><?php echo $user_name ?>.</h1>
-        <p class="intro">FoodTracker: Your premium diet dashboard. Get nutritional insights and daily meal plans with ease. Accessible navigation on the left.</p>
-        <h1 class="latest_news"><br>Latest news:</h1>
-        <p class="news">Version 1.0 offers complete access to all the latest bug fixes and safety features for your security. Happy ease of use!</p>
-    </div>
+    <?php include 'dashboard_home.php'; ?>
 
     <!-- Food list section -->
-    <div id="food-list">
-        <div id="food-content">
-            <div id="top">
-                <!-- Form to add new food items -->
-                <div class="form">
-                    <form id="add-item-form" method="post" action="dashboard.php?page=food-list">
-                        <input type="text" name="name" value="" placeholder="Name">
-                        <input type="text" name="calories" value="" placeholder="Calories">
-                        <input type="text" name="carbohydrates" value="" placeholder="Carbohydrates">
-                        <input type="text" name="fat" value="" placeholder="Fat">
-                        <input type="text" name="protein" value="" placeholder="Protein">
-                        <br>
-                        <?php echo $insert_output; ?>
-                        <br>
-                        <input id="add_button" class="modify-button" type="submit" name="add" value="Add Food">
-                    </form>
-                </div>
-
-                <!-- Form to edit existing food items -->
-                <div class="form">
-                    <form id="edit-item-form" method="post" action="dashboard.php?page=food-list">
-                        <label for="edit-name"></label><input id="edit-name" readonly="readonly" type="text" name="name" value="" placeholder="Name">
-                        <label for="edit-calories"></label><input id="edit-calories" readonly="readonly" type="text" name="calories" value=""
-                                                                  placeholder="Calories">
-                        <label for="edit-carbohydrates"></label><input id="edit-carbohydrates" readonly="readonly" type="text" name="carbohydrates" value=""
-                                                                       placeholder="Carbohydrates">
-                        <label for="edit-fat"></label><input id="edit-fat" readonly="readonly" type="text" name="fat" value="" placeholder="Fat">
-                        <label for="edit-protein"></label><input id="edit-protein" readonly="readonly" type="text" name="protein" value=""
-                                                                 placeholder="Protein">
-                        <br>
-                        <?php echo $edit_output; ?>
-                        <br>
-                        <input id="edit_button" class="modify-button" type="submit" name="edit-confirm" value="Edit Food">
-                    </form>
-                </div>
-            </div>
-
-            <div id="bottom">
-                <!-- Table displaying the list of food items -->
-                <div class="food-table-box">
-                    <form action="dashboard.php?page=food-list" method="post">
-                        <table id="food-table" class="food-table">
-                            <thead>
-                            <tr>
-                                <td>Select</td>
-                                <td>Name</td>
-                                <td>Calories</td>
-                                <td>Carbohydrates</td>
-                                <td>Fat</td>
-                                <td>Protein</td>
-                                <td colspan="2">Action</td>
-                            </tr>
-                            <?php
-                            $select_output = $conn->query("SELECT * FROM `food_items` WHERE user_id='$user_id'");
-
-                            if (mysqli_num_rows($select_output) == 0) { ?>
-                                <tr class="food-table-item">
-                                    <td colspan="8" class="error">Error: no food items were included.</td>
-                                </tr>
-                                <?php
-                            }
-
-                            if ($select_output) {
-                                while ($row = mysqli_fetch_assoc($select_output)) { ?>
-                                    <tr class="food-table-item">
-                                        <td><input type="checkbox" class="select-checkbox" name="checkbox[<?php echo $row['name']; ?>]"
-                                                   value="<?php echo $row['name']; ?>"/></td>
-                                        <td><?php echo $row['name']; ?></td>
-                                        <td><?php echo $row['calories']; ?></td>
-                                        <td><?php echo $row['carbohydrates']; ?>g</td>
-                                        <td><?php echo $row['fat']; ?>g</td>
-                                        <td><?php echo $row['protein']; ?>g</td>
-                                        <td>
-                                            <a class="edit_btn" href="dashboard.php?page=food-list&edit=<?php echo $row['name']; ?>"><span class="side-item material-icons-sharp">build</span></a>
-                                            <a class="delete_btn" href="dashboard.php?page=food-list&delete=<?php echo $row['name']; ?>"><span class="side-item material-icons-sharp">delete_outline</span></a>
-                                        </td>
-                                    </tr>
-                                    <?php
-                                }
-                            }
-                            ?>
-                            </thead>
-                        </table>
-                        <input id="add_todays_chart" class="button" type="submit" name="add-todays-list"
-                               value="Click Here to Add Selected Items to The Today's Chart">
-                    </form>
-                </div>
-
-                <div id="add-todays-list-output">
-                    <?php echo $add_to_todays_list_output ?>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <?php include 'includes/food-list.php'; ?>
 
     <!-- Today's list section -->
-    <div id="todays-list">
+    <?php include 'includes/todays-list.php'; ?>
 
-        <div class="food-table-box">
-            <form action="dashboard.php?page=todays-list" method="post">
-                <table id="todays-list-table" class="food-table">
-                    <thead>
-                    <tr>
-                        <td>Select</td>
-                        <td>Name</td>
-                        <td>Calories</td>
-                        <td>Carbohydrates</td>
-                        <td>Fat</td>
-                        <td>Protein</td>
-                    </tr>
-                    <?php
-                    $select_output = $conn->query("SELECT * FROM `todays_items` WHERE user_id='$user_id'");
-
-                    $total_calories = $total_carbs = $total_fat = $total_protein = 0;
-
-                    if ($select_output) {
-                        if (mysqli_num_rows($select_output) == 0) { ?>
-                            <tr class="food-table-item">
-                                <td colspan="6" class="error">No food items added!</td>
-                            </tr>
-                            <?php
-                        }
-
-                        while ($row = mysqli_fetch_assoc($select_output)) { ?>
-                            <tr class="food-table-item">
-                                <td><input type="checkbox" class="select-checkbox" name="checkbox[<?php echo $row['name']; ?>]"
-                                           value="<?php echo $row['name']; ?>"/></td>
-                                <td><?php echo $row['name']; ?></td>
-                                <td><?php echo $row['calories']; ?></td>
-                                <td><?php echo $row['carbohydrates']; ?>g</td>
-                                <td><?php echo $row['fat']; ?>g</td>
-                                <td><?php echo $row['protein']; ?>g</td>
-                            </tr>
-                            <?php
-                            // Calculate totals
-                            $total_calories += $row['calories'];
-                            $total_carbs += $row['carbohydrates'];
-                            $total_fat += $row['fat'];
-                            $total_protein += $row['protein'];
-                        }
-                    }
-                    ?>
-                    </thead>
-                    <tfoot>
-                    <tr>
-                        <td class="total_calc" colspan="2">Totals</td>
-                        <td><?php echo $total_calories; ?></td>
-                        <td><?php echo $total_carbs; ?>g</td>
-                        <td><?php echo $total_fat; ?>g</td>
-                        <td><?php echo $total_protein; ?>g</td>
-                    </tr>
-                    </tfoot>
-                </table>
-                <input id="remove_today_chart" class="button" type="submit" name="remove-todays-items"
-                       value="Click here to delete items from the todays chart">
-            </form>
-
-            <div id="remove-todays-items-output">
-                <?php echo $remove_from_todays_list_output; ?>
-            </div>
-        </div>
-    </div>
-
-    <div id="charts">
-        <div id="chart-box">
-            <canvas id="macronutrients" height="400" width="400"></canvas>
-            <script>
-                // Update chart data
-                let totalCalories = <?php echo $total_calories; ?>;
-                let totalCarbs = <?php echo $total_carbs; ?>;
-                let totalFat = <?php echo $total_fat; ?>;
-                let totalProtein = <?php echo $total_protein; ?>;
-
-                const totalMacronutrients = totalCarbs + totalFat + totalProtein;
-                const proteinPercentage = (totalProtein / totalMacronutrients) * 100;
-                const carbsPercentage = (totalCarbs / totalMacronutrients) * 100;
-                const fatPercentage = (totalFat / totalMacronutrients) * 100;
-
-                const labels = ["Protein", "Carbohydrates", "Fat"];
-                const percentages = [proteinPercentage, carbsPercentage, fatPercentage];
-
-                // Update chart colors
-                const colours = ["#FF5733", "#33FF57", "#3357FF"]; // Updated to hexadecimal color codes
-
-                // Timeout necessary so chart doesn't display when switching pages
-                setTimeout(function () {
-                    new Chart("macronutrients", {
-                        type: "pie",
-                        data: {
-                            labels: labels,
-                            datasets: [{
-                                backgroundColor: colours,
-                                data: percentages
-                            }]
-                        },
-                        options: {
-                            title: {
-                                display: true,
-                                text: "Updated Macronutrient Chart" // chart title
-                            }
-                        }
-                    });
-                }, 500);
-            </script>
-        </div>
-    </div>
-
+    <!-- Chart section -->
+    <?php include 'includes/chart.php'; ?>
 
 </div>
 
