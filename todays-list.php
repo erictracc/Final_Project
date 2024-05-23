@@ -1,5 +1,4 @@
 <div id="todays-list">
-
     <div class="food-table-box">
         <form action="dashboard.php?page=todays-list" method="post">
             <table id="todays-list-table" class="food-table">
@@ -13,8 +12,10 @@
                     <td>Protein</td>
                 </tr>
                 <?php
+                // Fetch today's items from the database
                 $select_output = $conn->query("SELECT * FROM `todays_items` WHERE user_id='$user_id'");
 
+                // Initialize total values
                 $total_calories = $total_carbs = $total_fat = $total_protein = 0;
 
                 if ($select_output) {
@@ -25,10 +26,10 @@
                         <?php
                     }
 
+                    // Display each item in the table
                     while ($row = mysqli_fetch_assoc($select_output)) { ?>
                         <tr class="food-table-item">
-                            <td><input type="checkbox" class="select-checkbox" name="checkbox[<?php echo $row['name']; ?>]"
-                                       value="<?php echo $row['name']; ?>"/></td>
+                            <td><input type="checkbox" class="select-checkbox" name="checkbox[<?php echo $row['name']; ?>]" value="<?php echo $row['name']; ?>"/></td>
                             <td><?php echo $row['name']; ?></td>
                             <td><?php echo $row['calories']; ?></td>
                             <td><?php echo $row['carbohydrates']; ?>g</td>
@@ -55,10 +56,10 @@
                 </tr>
                 </tfoot>
             </table>
-            <input id="remove_today_chart" class="button" type="submit" name="remove-todays-items"
-                   value="Click here to delete items from the todays chart">
+            <input id="remove_today_chart" class="button" type="submit" name="remove-todays-items" value="Click here to delete items from the todays chart">
         </form>
 
+        <!-- Output section for removing items from today's list -->
         <div id="remove-todays-items-output">
             <?php echo $remove_from_todays_list_output; ?>
         </div>

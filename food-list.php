@@ -9,9 +9,9 @@
                     <input type="text" name="carbohydrates" value="" placeholder="Carbohydrates">
                     <input type="text" name="fat" value="" placeholder="Fat">
                     <input type="text" name="protein" value="" placeholder="Protein">
-                    <br>
+                    <br><br>
                     <?php echo $insert_output; ?>
-                    <br>
+                    <br><br>
                     <input id="add_button" class="modify-button" type="submit" name="add" value="Add Food">
                 </form>
             </div>
@@ -20,16 +20,13 @@
             <div class="form">
                 <form id="edit-item-form" method="post" action="dashboard.php?page=food-list">
                     <label for="edit-name"></label><input id="edit-name" readonly="readonly" type="text" name="name" value="" placeholder="Name">
-                    <label for="edit-calories"></label><input id="edit-calories" readonly="readonly" type="text" name="calories" value=""
-                                                              placeholder="Calories">
-                    <label for="edit-carbohydrates"></label><input id="edit-carbohydrates" readonly="readonly" type="text" name="carbohydrates" value=""
-                                                                   placeholder="Carbohydrates">
+                    <label for="edit-calories"></label><input id="edit-calories" readonly="readonly" type="text" name="calories" value="" placeholder="Calories">
+                    <label for="edit-carbohydrates"></label><input id="edit-carbohydrates" readonly="readonly" type="text" name="carbohydrates" value="" placeholder="Carbohydrates">
                     <label for="edit-fat"></label><input id="edit-fat" readonly="readonly" type="text" name="fat" value="" placeholder="Fat">
-                    <label for="edit-protein"></label><input id="edit-protein" readonly="readonly" type="text" name="protein" value=""
-                                                             placeholder="Protein">
-                    <br>
+                    <label for="edit-protein"></label><input id="edit-protein" readonly="readonly" type="text" name="protein" value="" placeholder="Protein">
+                    <br><br>
                     <?php echo $edit_output; ?>
-                    <br>
+                    <br><br>
                     <input id="edit_button" class="modify-button" type="submit" name="edit-confirm" value="Edit Food">
                 </form>
             </div>
@@ -63,8 +60,7 @@
                         if ($select_output) {
                             while ($row = mysqli_fetch_assoc($select_output)) { ?>
                                 <tr class="food-table-item">
-                                    <td><input type="checkbox" class="select-checkbox" name="checkbox[<?php echo $row['name']; ?>]"
-                                               value="<?php echo $row['name']; ?>"/></td>
+                                    <td><input type="checkbox" class="select-checkbox" name="checkbox[<?php echo $row['name']; ?>]" value="<?php echo $row['name']; ?>"/></td>
                                     <td><?php echo $row['name']; ?></td>
                                     <td><?php echo $row['calories']; ?></td>
                                     <td><?php echo $row['carbohydrates']; ?>g</td>
@@ -81,11 +77,11 @@
                         ?>
                         </thead>
                     </table>
-                    <input id="add_todays_chart" class="button" type="submit" name="add-todays-list"
-                           value="Click Here to Add Selected Items to The Today's Chart">
+                    <input id="add_todays_chart" class="button" type="submit" name="add-todays-list" value="Click Here to Add Selected Items to The Today's Chart">
                 </form>
             </div>
 
+            <!-- Output section for adding items to today's list -->
             <div id="add-todays-list-output">
                 <?php echo $add_to_todays_list_output ?>
             </div>

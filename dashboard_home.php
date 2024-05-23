@@ -1,3 +1,4 @@
+<!-- dashboard homepage div -->
 <div id="dashboard">
     <img class="main_page_logo" src="media/dashboard_logo.png" alt="The Webpage logo: a bowl of fruits and veggies.">
     <h1 class="intro_title">Welcome to FoodTracker, <br><?php echo $user_name ?>.</h1>

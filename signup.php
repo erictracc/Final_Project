@@ -6,7 +6,7 @@ global $conn;
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Include utility functions
+// Include the utility function file
 include "config/util.php";
 
 $output = "";

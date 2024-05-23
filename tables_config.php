@@ -1,19 +1,21 @@
 <?php
 // Add item to the food list
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add'], $_POST['name'], $_POST['calories'], $_POST['carbohydrates'], $_POST['fat'], $_POST['protein'])) {
+    // Retrieve form data
     $name = $_POST['name'];
     $calories = $_POST['calories'];
     $carbohydrates = $_POST['carbohydrates'];
     $fat = $_POST['fat'];
     $protein = $_POST['protein'];
 
-
+    // Regular expression pattern for numeric values
     $pattern = '/^\d+(\.\d+)?$/';
 
-
+    // Validate numeric input
     if (!preg_match($pattern, $calories) || !preg_match($pattern, $carbohydrates) || !preg_match($pattern, $fat) || !preg_match($pattern, $protein)) {
         $insert_output = failed("Macronutrient values must be numeric.");
     } else {
+        // Prepare and execute SQL query to insert data into food_items table
         $insert_query = $conn->prepare(
             "INSERT INTO `food_items` (`user_id`, `name`, `calories`, `carbohydrates`, `fat`, `protein`) VALUES (?, ?, ?, ?, ?, ?)"
         );
@@ -29,12 +31,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add'], $_POST['name']
 
 // Delete item from the food list
 if (isset($_GET['delete'])) {
+    // Retrieve item name from URL parameter
     $name = $_GET['delete'];
 
+    // Prepare and execute SQL query to delete item from food_items table
     $delete_query = $conn->prepare("DELETE FROM `food_items` WHERE user_id = ? AND name = ?");
     $delete_query->bind_param('is', $user_id, $name);
 
     if ($delete_query->execute()) {
+        // Redirect to food-list page after successful deletion
         header("Location: dashboard.php?page=food-list");
         exit();
     }
@@ -42,14 +47,17 @@ if (isset($_GET['delete'])) {
 
 // Enable editing input values for a food item
 if (isset($_GET['edit'])) {
+    // Retrieve item name from URL parameter
     $name = $_GET['edit'];
 
+    // Prepare and execute SQL query to select item data for editing
     $select_item_query = $conn->prepare("SELECT * FROM `food_items` WHERE user_id = ? AND name = ?");
     $select_item_query->bind_param('is', $user_id, $name);
     $select_item_query->execute();
     $result = $select_item_query->get_result();
 
     if ($row = $result->fetch_assoc()) { ?>
+        <!-- Script to set editable input values based on item data -->
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
@@ -66,17 +74,19 @@ if (isset($_GET['edit'])) {
 
 // Edit a food item in the food list
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit-confirm'], $_POST['name'], $_POST['calories'], $_POST['carbohydrates'], $_POST['fat'], $_POST['protein'])) {
+    // Retrieve form data
     $name = $_POST['name'];
     $calories = $_POST['calories'];
     $carbohydrates = $_POST['carbohydrates'];
     $fat = $_POST['fat'];
     $protein = $_POST['protein'];
 
+    // Validate numeric input
     $pattern = '/^\d+(\.\d+)?$/';
-
     if (!preg_match($pattern, $calories) || !preg_match($pattern, $carbohydrates) || !preg_match($pattern, $fat) || !preg_match($pattern, $protein)) {
         $edit_output = failed("Please enter numeric values for macronutrients.");
     } else {
+        // Prepare and execute SQL query to update food item
         $update_query = $conn->prepare(
             "UPDATE `food_items` SET `calories` = ?, `carbohydrates` = ?, `fat` = ?, `protein` = ? WHERE `user_id` = ? AND `name` = ?"
         );
@@ -92,15 +102,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit-confirm'], $_POS
 
 // Add items to today's list
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add-todays-list'], $_POST['checkbox'])) {
+    // Retrieve checkbox values
     $checkbox = $_POST['checkbox'];
 
     foreach ($checkbox as $name) {
+        // Prepare and execute SQL query to select item data from food_items table
         $select_item_query = $conn->prepare("SELECT * FROM `food_items` WHERE user_id = ? AND name = ?");
         $select_item_query->bind_param('is', $user_id, $name);
         $select_item_query->execute();
         $result = $select_item_query->get_result();
 
         if ($row = $result->fetch_assoc()) {
+            // Prepare and execute SQL query to insert items into todays_items table
             $insert_query = $conn->prepare(
                 "INSERT INTO `todays_items` (`user_id`, `name`, `calories`, `carbohydrates`, `fat`, `protein`) VALUES (?, ?, ?, ?, ?, ?)"
             );
@@ -120,27 +133,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add-todays-list'], $_
 // Remove items from today's list
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove-todays-items'])) {
     if (isset($_POST['checkbox'])) {
-        $checkbox = $_POST['checkbox'];
+        // Retrieve checkbox values
 
-        // Check if checkboxes are selected
-        if (!empty($checkbox)) {
-            foreach ($checkbox as $name) {
-                $remove_query = $conn->prepare("DELETE FROM `todays_items` WHERE `user_id` = ? AND `name` = ?");
-                $remove_query->bind_param('is', $user_id, $name);
+        if (isset($_POST['checkbox'])) {
+            $checkbox = $_POST['checkbox'];
 
-                if ($remove_query->execute()) {
-                    $remove_from_todays_list_output = completed("Items removed from today's list successfully.");
-                } else {
-                    $remove_from_todays_list_output = failed("Error removing items from today's list.");
-                    error_log("Error removing item '$name': " . $conn->error);
+            // Check if checkboxes are selected
+            if (!empty($checkbox)) {
+                foreach ($checkbox as $name) {
+                    $remove_query = $conn->prepare("DELETE FROM `todays_items` WHERE `user_id` = ? AND `name` = ?");
+                    $remove_query->bind_param('is', $user_id, $name);
+
+                    if ($remove_query->execute()) {
+                        $remove_from_todays_list_output = completed("Items removed from today's list successfully.");
+                    } else {
+                        $remove_from_todays_list_output = failed("Error removing items from today's list.");
+                        error_log("Error removing item '$name': " . $conn->error);
+                    }
                 }
+            } else {
+                $remove_from_todays_list_output = failed("No items selected.");
             }
         } else {
-            $remove_from_todays_list_output = failed("No items selected.");
+            $remove_from_todays_list_output = failed("No checkboxes submitted.");
         }
     } else {
-        $remove_from_todays_list_output = failed("No checkboxes submitted.");
+        $remove_from_todays_list_output = ""; // No action required when opening the page
     }
-} else {
-    $remove_from_todays_list_output = ""; // No action required when opening the page
 }
