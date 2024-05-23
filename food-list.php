@@ -3,7 +3,7 @@
         <div id="top">
             <!-- Form to add new food items -->
             <div class="form">
-                <form id="add-item-form" method="post" action="../dashboard.php?page=food-list">
+                <form id="add-item-form" method="post" action="dashboard.php?page=food-list">
                     <input type="text" name="name" value="" placeholder="Name">
                     <input type="text" name="calories" value="" placeholder="Calories">
                     <input type="text" name="carbohydrates" value="" placeholder="Carbohydrates">
@@ -18,7 +18,7 @@
 
             <!-- Form to edit existing food items -->
             <div class="form">
-                <form id="edit-item-form" method="post" action="../dashboard.php?page=food-list">
+                <form id="edit-item-form" method="post" action="dashboard.php?page=food-list">
                     <label for="edit-name"></label><input id="edit-name" readonly="readonly" type="text" name="name" value="" placeholder="Name">
                     <label for="edit-calories"></label><input id="edit-calories" readonly="readonly" type="text" name="calories" value=""
                                                               placeholder="Calories">
@@ -38,7 +38,7 @@
         <div id="bottom">
             <!-- Table displaying the list of food items -->
             <div class="food-table-box">
-                <form action="../dashboard.php?page=food-list" method="post">
+                <form action="dashboard.php?page=food-list" method="post">
                     <table id="food-table" class="food-table">
                         <thead>
                         <tr>
@@ -71,8 +71,8 @@
                                     <td><?php echo $row['fat']; ?>g</td>
                                     <td><?php echo $row['protein']; ?>g</td>
                                     <td>
-                                        <a class="edit_btn" href="../dashboard.php?page=food-list&edit=<?php echo $row['name']; ?>"><span class="side-item material-icons-sharp">build</span></a>
-                                        <a class="delete_btn" href="../dashboard.php?page=food-list&delete=<?php echo $row['name']; ?>"><span class="side-item material-icons-sharp">delete_outline</span></a>
+                                        <a class="edit_btn" href="dashboard.php?page=food-list&edit=<?php echo $row['name']; ?>"><span class="side-item material-icons-sharp">build</span></a>
+                                        <a class="delete_btn" href="dashboard.php?page=food-list&delete=<?php echo $row['name']; ?>"><span class="side-item material-icons-sharp">delete_outline</span></a>
                                     </td>
                                 </tr>
                                 <?php
