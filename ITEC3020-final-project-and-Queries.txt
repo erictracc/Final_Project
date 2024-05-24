@@ -5,7 +5,10 @@ Github:
 https://github.com/erictracc/Final_Project
 
 
-SQL Queries:
+SQL Queries/Commands:
+
+CREATE DATABASE final_project;
+USE final_project;
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
